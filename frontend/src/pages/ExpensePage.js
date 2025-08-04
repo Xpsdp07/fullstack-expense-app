@@ -43,7 +43,7 @@ function Expenses() {
         try {
           setLoading(true);
           setError(null);
-          const res = await axios.get(API_URL);
+          const res = await axios.get(`${API_URL}/`);
           setExpenses(res.data);
         } catch (err) {
           setError('Failed to load expenses.');
@@ -58,7 +58,7 @@ function Expenses() {
 
   const addExpense = useCallback(async (expense) => {
     try {
-      const res = await axios.post(API_URL, expense);
+      const res = await axios.post(`${API_URL}/`, expense);
       setExpenses((prev) => [res.data, ...prev]);
     } catch {
       alert('Error adding expense');
@@ -67,7 +67,7 @@ function Expenses() {
 
   const deleteExpense = useCallback(async (id) => {
     try {
-      await axios.delete(`${API_URL}${id}/`);
+      await axios.delete(`${API_URL}/${id}/`);
       setExpenses((prev) => prev.filter((e) => e.id !== id));
     } catch {
       alert('Error deleting expense');
